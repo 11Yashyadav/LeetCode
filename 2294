@@ -1,0 +1,18 @@
+class Solution {
+    public int partitionArray(int[] nums, int k) {
+        int[] buckets=new int[Arrays.stream(nums).max().orElseThrow()+1];
+        int max=0;
+        for(int num:nums){
+            buckets[num]++;
+            max=Math.max(max,num);
+        }
+        int result=0;
+        for(int i=0;i<=max;i++){
+            if(buckets[i]>0){
+                result++;
+                i+=k;
+            }
+        }
+        return result;
+    }
+}
