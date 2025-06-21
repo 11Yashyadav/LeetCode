@@ -1,0 +1,21 @@
+class Solution {
+    public int minimumDeletions(String word, int k) {
+        int[] freq = new int[26];
+        for (char c : word.toCharArray()) {
+            freq[c - 'a']++;
+        }
+        List<Integer> nums = new ArrayList<>();
+        for (int f : freq) if (f > 0) nums.add(f);
+
+        int ans = word.length();
+        for (int v : nums) {
+            int deletions = 0;
+            for (int f : nums) {
+                if (f < v) deletions += f;
+                else if (f > v + k) deletions += f - (v + k);
+            }
+            ans = Math.min(ans, deletions);
+        }
+        return ans;
+    }
+}
