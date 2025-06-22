@@ -1,0 +1,27 @@
+class Solution {
+    public String[] divideString(String s, int k, char fill) {
+        int n = s.length();
+        int q = n/k;
+        int rem = n%k;
+        if(rem!=0) q++;
+        int x=0;
+        String[] arr = new String[q];
+        for(int i =0;i<n;i++){
+            int count =0;
+            StringBuilder str = new StringBuilder();
+            for(int  j=i;j<n && count <k;j++){
+                str.append(s.charAt(j));
+                count++;
+            }
+            if(count !=k){
+                while(k-count >0){
+                    str.append(fill);
+                    count++;
+                }
+            }
+            arr[x++]=str.toString();
+            i+=k-1;
+        }
+        return arr;
+    }
+}
