@@ -1,0 +1,26 @@
+class Solution {
+    public boolean checkPrimeFrequency(int[] nums) {
+        Map<Integer,Integer>m=new HashMap<>();
+        int q=0;
+        for(int a:nums){
+            m.put(a,m.getOrDefault(a,0)+1);
+        }
+        for(Map.Entry<Integer,Integer>sp:m.entrySet()){
+            int p=sp.getValue();
+            if(isPrime(p)) q++;
+        }
+        if(q==0) return false;
+        else return true;
+        
+    }
+    boolean isPrime(int p){
+        if(p<=1) return false;
+         if(p==2 || p==3) return true;
+         if(p%2==0 || p%3==0) return false;
+         for(int i=5;i*i<=p;i+=6){
+            if(p%i==0 || p%(i+2)==0) return false;
+         }
+         return true;
+        
+    }
+}
