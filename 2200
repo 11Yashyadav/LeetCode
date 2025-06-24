@@ -16,3 +16,28 @@ class Solution {
         return res;
     }
 }
+
+
+
+****** Optimized ******
+
+class Solution {
+    public List<Integer> findKDistantIndices(int[] nums, int key, int k) {
+        ArrayList<Integer>a=new ArrayList <>();
+        HashSet<Integer>b=new HashSet <>();
+        for(int iS=0;i<nums.length;i++){
+            if(nums[i]==key) a.add(i);
+        }
+       
+        for( int j=0;j<a.size();j++){
+            for(int i=0;i<nums.length;i++){
+                if(Math.abs(a.get(j)-i)<=k) b.add(i);
+            }
+        }
+         ArrayList<Integer>c=new ArrayList <>(b);
+         Collections.sort(c);
+        return c;
+
+        
+    }
+}
