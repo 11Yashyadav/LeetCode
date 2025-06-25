@@ -1,0 +1,46 @@
+class Solution {
+    public long kthSmallestProduct(int[] nums1, int[] nums2, long k) {
+       
+        long left = -10000000000L, right = 10000000000L;
+
+        while (left < right) {
+            long mid = left + (right - left) / 2;
+            if (countLessEqual(nums1, nums2, mid) >= k) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return left;
+    }
+
+    private long countLessEqual(int[] nums1, int[] nums2, long x) {
+        long count = 0;
+        int m = nums2.length;
+
+        for (int a : nums1) {
+            if (a > 0) {
+                int l = 0, r = m - 1;
+                while (l <= r) {
+                    int mid = (l + r) / 2;
+                    if ((long)a * nums2[mid] <= x) l = mid + 1;
+                    else r = mid - 1;
+                }
+                count += l;
+            } else if (a < 0) {
+                int l = 0, r = m - 1;
+                while (l <= r) {
+                    int mid = (l + r) / 2;
+                    if ((long)a * nums2[mid] <= x) r = mid - 1;
+                    else l = mid + 1;
+                }
+                count += (m - l);
+            } else { // a == 0
+                if (x >= 0) count += m;
+            }
+        }
+
+        return count;
+    }
+}
