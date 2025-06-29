@@ -1,0 +1,37 @@
+class Solution {
+    public int numSubseq(int[] nums, int target) {
+        int n = nums.length;
+        int mod = 1_000_000_007;
+
+        int[] pow2 = new int[n + 1];
+        pow2[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            pow2[i] = (pow2[i - 1] * 2) % mod;
+        }
+
+        Arrays.sort(nums);
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            int left = i;
+            int right = n - 1;
+            int ntar = target - nums[i];
+
+             while (left <= right) {
+                int mid = left + (right - left) / 2;
+                if (nums[mid] <= ntar) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+
+            int count = right - i; 
+            if (count >= 0) {
+                ans = (ans + pow2[count]) % mod;
+            }
+        }
+
+        return ans;
+    }
+}
