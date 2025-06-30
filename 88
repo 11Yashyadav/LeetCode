@@ -1,0 +1,31 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int n1=0,n2=0;
+        int []l = new int[m];
+        for(int i=0;i<m;i++){
+            l[i]=nums1[i];
+        }
+        int k=0;
+        while(n1< m && n2 < n){
+            if(l[n1] <= nums2[n2]){
+             nums1[k]=l[n1];
+             n1++;
+            }
+            else{
+                nums1[k]=nums2[n2];
+                n2++;
+            }
+            k++;
+        }
+        while(n1 < m){
+            nums1[k]=l[n1];
+            n1++;
+            k++;
+        }
+        while(n2 < n){
+            nums1[k]=nums2[n2];
+            n2++;
+            k++;
+        }
+    }
+}
