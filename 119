@@ -1,0 +1,22 @@
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    List<Integer> generaterow(int row) {
+        List<Integer> ansRow = new ArrayList<>();
+        BigInteger ans = BigInteger.ONE; 
+
+        ansRow.add(ans.intValue()); 
+        for (int i = 1; i < row; i++) {
+            ans = ans.multiply(BigInteger.valueOf(row - i)).divide(BigInteger.valueOf(i));
+            ansRow.add(ans.intValue()); 
+        }
+
+        return ansRow;
+    }
+
+    public List<Integer> getRow(int rowIndex) {
+        return generaterow(rowIndex + 1);
+    }
+}
