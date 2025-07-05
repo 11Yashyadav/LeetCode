@@ -13,3 +13,22 @@ class Solution {
         return -1; 
     }
 }
+
+***************** alternative approach  *****************************
+
+class Solution {
+    public int findLucky(int[] arr) {
+        
+        HashMap<Integer,Integer> mp = new HashMap<>();
+        for(int i  : arr){
+            mp.put(i,mp.getOrDefault(i,0)+1);
+        }
+        int ans =-1;
+        for(Map.Entry<Integer,Integer> ent : mp.entrySet()){
+            if(ent.getKey()==ent.getValue()){
+                ans = Math.max(ans, ent.getKey());
+            }
+        }
+        return ans;
+    }
+}
