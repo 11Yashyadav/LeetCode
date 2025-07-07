@@ -1,0 +1,15 @@
+class Solution {
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> arr = new ArrayList<>();
+        boolean[] seen = new boolean[nums.length+1];
+        for(int x : nums){
+            if(seen[x]){
+                arr.add(x);
+            }
+            else{
+                seen[x]=true;
+            }
+        }
+        return arr;
+    }
+}
