@@ -1,0 +1,40 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        int[] ret = new int[k];
+
+        Arrays.sort(nums);
+
+        PriorityQueue<int[]> topK = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+
+        int prevIdx = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[prevIdx] != nums[i]) {
+                int count = i - prevIdx;
+                if (topK.size() < k || topK.peek()[0] < count) {
+                    topK.add(new int[]{count, prevIdx});
+
+                    if (topK.size() > k) {
+                        topK.poll();
+                    }
+                }
+                prevIdx = i;
+            }
+        }
+
+        int count = nums.length - prevIdx;
+        if (topK.size() < k || topK.peek()[0] < count) {
+            topK.add(new int[]{count, prevIdx});
+
+            if (topK.size() > k) {
+                topK.poll();
+            }
+        }
+
+        int idx = 0;
+        while (!topK.isEmpty()) {
+            ret[idx++] = nums[topK.poll()[1]];
+        }
+
+        return ret;
+    }
+}
