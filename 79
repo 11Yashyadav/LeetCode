@@ -1,0 +1,35 @@
+class Solution {
+    public boolean exist(char[][] b, String word) {
+        int n = b.length;
+        int m = b[0].length;
+        boolean[][] seen = new boolean[n][m];
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (help(b, seen, word, i, j, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean help(char[][] b, boolean[][] seen, String word, int i, int j, int curr) {
+        if (curr == word.length()) return true;
+
+        int r = b.length, c = b[0].length;
+        if (i < 0 || i >= r || j < 0 || j >= c || seen[i][j] || b[i][j] != word.charAt(curr)) {
+            return false;
+        }
+
+        seen[i][j] = true;
+
+        boolean found = help(b, seen, word, i - 1, j, curr + 1) ||
+                        help(b, seen, word, i + 1, j, curr + 1) ||
+                        help(b, seen, word, i, j - 1, curr + 1) ||
+                        help(b, seen, word, i, j + 1, curr + 1);
+
+        seen[i][j] = false; // backtrack
+        return found;
+    }
+}
