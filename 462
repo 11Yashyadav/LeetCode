@@ -1,0 +1,13 @@
+class Solution {
+    public int minMoves2(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        int i = 0, j = n - 1, sum = 0;
+        while (i < j) {
+            sum += nums[j] - nums[i];
+            j--;
+            i++;
+        }
+        return sum;
+    }
+}
