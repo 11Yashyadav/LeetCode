@@ -1,0 +1,24 @@
+class Solution {
+    public boolean isValid(String word) {
+        if(word.length()<3) return false;
+        boolean cons = false;
+        boolean vol = false;
+        for(char c : word.toCharArray()){
+            if((c>='a' && c<='z') || (c>='A' && c<='Z')){
+                if(c=='a' || c=='i' || c=='o' || c=='u' || c=='e' || c=='A' || c=='I' || c=='O' || c=='U' || c=='E' ){
+                    cons=true;
+                }
+                else{
+                    vol=true;
+                }
+            }
+            else if( (c>='0' && c<='9') ){
+                continue;
+            }
+            else{
+                return false;
+            }
+        }
+        return vol && cons;
+    }
+}
