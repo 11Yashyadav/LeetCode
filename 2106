@@ -1,0 +1,29 @@
+class Solution {
+    public int maxTotalFruits(int[][] fruits, int startPos, int k) {
+        int n = fruits.length;
+        int ans = 0;
+        int[] pos = new int[n];
+        int[] amount = new int[n];
+        for (int i = 0; i < n; i++) {
+            pos[i] = fruits[i][0];
+            amount[i] = fruits[i][1];
+        }
+        int left = 0;
+        int currSum = 0;
+        for (int right = 0; right < n; right++) {
+            currSum += amount[right];
+            while (left <= right && !isReachable(pos[left], pos[right], startPos, k)) {
+                currSum -= amount[left];
+                left++;
+            }
+
+            ans = Math.max(ans, currSum);
+        }
+
+        return ans;
+    }
+    private boolean isReachable(int l, int r, int startPos, int k) {
+        int dist = Math.min(Math.abs(startPos - l), Math.abs(startPos - r)) + (r - l);
+        return dist <= k;
+    }
+}
