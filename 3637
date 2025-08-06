@@ -1,0 +1,29 @@
+class Solution {
+    public boolean isTrionic(int[] nums) {
+        int n = nums.length;
+        if (n < 4) return false;
+        int i = 1;
+        int incLen = 0;
+        while (i < n && nums[i-1] < nums[i]) {
+            incLen++;
+            i++;
+        }
+
+        if (incLen == 0 || i == n) return false;
+
+        int decLen = 0;
+        while (i < n && nums[i-1] > nums[i]) {
+            decLen++;
+            i++;
+        }
+        if (decLen == 0 || i == n) return false;
+
+        int lastIncLen = 0;
+        while (i < n && nums[i-1] < nums[i]) {
+            lastIncLen++;
+            i++;
+        }
+        if (lastIncLen == 0) return false;
+        return i == n;
+    }
+}
