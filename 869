@@ -1,0 +1,31 @@
+class Solution {
+    public boolean reorderedPowerOf2(int n) {
+        if(n==1) return true;
+        if(n==1000000000) return false;
+        int temp = n;
+        HashMap<Integer,Integer> mp = new HashMap<>();
+        int digit =0;
+        while(temp>0){
+            int curr = temp%10;
+            temp=temp/10;
+            mp.put(curr,mp.getOrDefault(curr,0)+1);
+            digit++;
+        }
+        int max =(int) (Math.pow(10,digit))-1;
+        int num =1;
+        while(num <= max){
+            num *=2;
+            HashMap<Integer,Integer> m = new HashMap<>();
+            int t = num;
+            while(t>0){
+                int curr = t%10;
+                t=t/10;
+                m.put(curr,m.getOrDefault(curr,0)+1);
+            } 
+            if(m.equals(mp)) return true;
+
+        }
+        return false;
+
+    }
+}
