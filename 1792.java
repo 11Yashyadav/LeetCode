@@ -1,5 +1,37 @@
 class Solution {
     public double maxAverageRatio(int[][] classes, int extraStudents) {
+        PriorityQueue<double[]> pq = new PriorityQueue<>((a, b) -> 
+            Double.compare(
+                ((b[0] + 1) / (b[1] + 1)) - (b[0] / b[1]),
+                ((a[0] + 1) / (a[1] + 1)) - (a[0] / a[1])
+            )
+        );
+
+        for (int[] cls : classes) {
+            pq.add(new double[]{cls[0], cls[1]});
+        }
+
+        while (extraStudents-- > 0) {
+            double[] cls = pq.poll();
+            cls[0]++;
+            cls[1]++;
+            pq.add(cls);
+        }
+
+        double total = 0;
+        while (!pq.isEmpty()) {
+            double[] cls = pq.poll();
+            total += cls[0] / cls[1];
+        }
+
+        return total / classes.length;
+    }
+}
+
+//*************************** Alternative Solution *******************************
+
+class Solution {
+    public double maxAverageRatio(int[][] classes, int extraStudents) {
         PriorityQueue<double[]> queue = new PriorityQueue<>((a, b) -> Double.compare(b[0], a[0]));
         for(int[] cls: classes) {
             double pass = cls[0], total = cls[1];
